@@ -28,7 +28,9 @@ const onClickHandler = (page: number) => {
 <style>
 .pagination-container {
   display: flex;
-  column-gap: 10px;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .paginate-buttons {
   height: 40px;
@@ -38,6 +40,9 @@ const onClickHandler = (page: number) => {
   background-color: rgb(242, 242, 242);
   border: 1px solid rgb(217, 217, 217);
   color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .paginate-buttons:hover {
   background-color: #d8d8d8;
