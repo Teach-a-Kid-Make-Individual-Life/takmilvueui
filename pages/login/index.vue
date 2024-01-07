@@ -5,7 +5,7 @@
     <div class="mw-100 m-auto p-4 border overflow-hidden" style="width: 500px">
       <h1 class="text-center h3 mt-3">Welcome to our app</h1>
       <p class="text-center mb-5">Login to continue</p>
-      <form autocomplete="off">
+      <form autocomplete="off" @submit.prevent="submit">
         <div class="mb-4">
           <label class="form-label">Username</label>
           <input
@@ -15,6 +15,8 @@
             autocomplete="off"
             id="username"
             name="username"
+            v-model="username"
+            required
           />
         </div>
         <div class="mb-4">
@@ -25,6 +27,8 @@
             autocomplete="off"
             id="password"
             name="password"
+            v-model="password"
+            required
           />
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -33,6 +37,11 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const username = ref('');
+const password = ref('');
+
+const submit = () => {};
+</script>
 
 <style></style>
