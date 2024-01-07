@@ -9,16 +9,16 @@ export default defineNuxtConfig({
       link: [
         {
           rel: 'stylesheet',
-          href: 'css/bootstrap.min.css',
+          href: '/css/bootstrap.min.css',
         },
         {
           rel: 'stylesheet',
-          href: 'css/bootstrap-icons.min.css',
+          href: '/css/bootstrap-icons.min.css',
         },
       ],
       script: [
         {
-          src: 'js/bootstrap.bundle.min.js',
+          src: '/js/bootstrap.bundle.min.js',
           tagPosition: 'bodyClose',
         },
       ],
