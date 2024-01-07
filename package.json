@@ -18,5 +18,8 @@
     "axios": "^1.6.5",
     "sass": "^1.69.7",
     "vue-awesome-paginate": "^1.1.46"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
