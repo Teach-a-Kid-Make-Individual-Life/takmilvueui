@@ -38,11 +38,15 @@
 </template>
 
 <script lang="ts" setup>
-const username = ref('kminchelle');
-const password = ref('0lelplR');
 import { authLogin } from '@/src/api/auth';
 import { TOKEN, USER } from '@/src/utils/constant';
+import { useAuthStore } from '@/src/stores/auth';
+
+const username = ref('kminchelle');
+const password = ref('0lelplR');
+const authStore = useAuthStore();
 const router = useRouter();
+
 const submit = async () => {
   try {
     const response = await authLogin({
@@ -50,9 +54,12 @@ const submit = async () => {
       username: username.value,
     });
     if (response?.id) {
+      // can not remove token and user from localstorage
+      // because we need it to know whether user already login or not when refresh page
+      // or when user access application next time, don't need to login anymore
       localStorage.setItem(TOKEN, response?.token || '');
       localStorage.setItem(USER, JSON.stringify(response));
-
+      authStore.user = response;
       router.push('/');
     }
   } catch (error) {}

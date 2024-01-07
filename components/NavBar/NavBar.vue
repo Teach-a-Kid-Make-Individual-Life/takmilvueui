@@ -25,25 +25,15 @@
 </template>
 
 <script lang="ts" setup>
-import type { AuthType } from '@/src/api/auth';
-import { TOKEN, USER } from '@/src/utils/constant';
+import { useAuthStore } from '@/src/stores/auth';
+import { storeToRefs } from 'pinia';
 
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
 const emits = defineEmits(['clickToggler']);
-const user = computed<AuthType>(() => {
-  if (typeof localStorage === 'undefined') {
-    return {};
-  }
-  const data = localStorage.getItem(USER);
-  if (data) {
-    return JSON.parse(data);
-  } else {
-    return {};
-  }
-});
 
 const logout = () => {
-  localStorage.removeItem(USER);
-  localStorage.removeItem(TOKEN);
+  authStore.user = {};
   window.location.href = '/login';
 };
 </script>
