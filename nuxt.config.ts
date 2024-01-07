@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   modules: ['@pinia/nuxt'],
   app: {
     head: {
-      title: 'Akir Magdum',
+      title: 'Zakir Magdum',
       link: [
         {
           rel: 'stylesheet',
