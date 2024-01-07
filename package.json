@@ -15,6 +15,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "axios": "^1.6.5",
     "sass": "^1.69.7"
   }
 }
