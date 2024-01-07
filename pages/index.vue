@@ -44,6 +44,7 @@ import { getListTodo, type ListTodoResponse } from '@/src/api/todos';
 
 definePageMeta({
   layout: 'dashboard',
+  middleware: 'dashboard',
 });
 
 const products = ref<ListProductResponse>({});

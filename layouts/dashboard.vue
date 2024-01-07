@@ -1,5 +1,8 @@
 <template>
-  <div class="position-fixed w-100 h-100 dashboard">
+  <div v-if="validating">
+    <h1 class="h4 mt-5 text-center">Validating...</h1>
+  </div>
+  <div v-else class="position-fixed w-100 h-100 dashboard">
     <div
       class="dashboard__left"
       :class="{ 'dashboard__left--open': showSideBar }"
@@ -10,7 +13,9 @@
       class="dashboard__right"
       :class="{ 'dashboard__right--open': showSideBar }"
     >
-      <NavBar @clickToggler="showSideBar = !showSideBar" />
+      <ClientOnly>
+        <NavBar @clickToggler="showSideBar = !showSideBar" />
+      </ClientOnly>
       <div class="dashboard__body">
         <slot />
       </div>
@@ -19,7 +24,20 @@
 </template>
 
 <script lang="ts" setup>
+import { TOKEN } from '@/src/utils/constant';
+
 const showSideBar = ref(false);
+const validating = ref(true);
+const router = useRouter();
+onBeforeMount(() => {
+  const token = localStorage.getItem(TOKEN);
+  if (!token) {
+    router.push('/login');
+    validating.value = false;
+    return;
+  }
+  validating.value = false;
+});
 </script>
 
 <style lang="scss">

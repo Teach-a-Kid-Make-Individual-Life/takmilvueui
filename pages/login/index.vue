@@ -38,10 +38,25 @@
 </template>
 
 <script lang="ts" setup>
-const username = ref('');
-const password = ref('');
+const username = ref('kminchelle');
+const password = ref('0lelplR');
+import { authLogin } from '@/src/api/auth';
+import { TOKEN, USER } from '@/src/utils/constant';
+const router = useRouter();
+const submit = async () => {
+  try {
+    const response = await authLogin({
+      password: password.value,
+      username: username.value,
+    });
+    if (response?.id) {
+      localStorage.setItem(TOKEN, response?.token || '');
+      localStorage.setItem(USER, JSON.stringify(response));
 
-const submit = () => {};
+      router.push('/');
+    }
+  } catch (error) {}
+};
 </script>
 
 <style></style>

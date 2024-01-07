@@ -1,3 +1,4 @@
 const TOKEN = 'TOKEN';
+const USER = 'USER';
 
-export { TOKEN };
+export { TOKEN, USER };

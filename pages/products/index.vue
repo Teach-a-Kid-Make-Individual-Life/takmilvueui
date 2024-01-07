@@ -139,6 +139,7 @@ onBeforeMount(() => {
 
 definePageMeta({
   layout: 'dashboard',
+  middleware: 'dashboard',
 });
 </script>
 

@@ -9,13 +9,15 @@
     ></i>
 
     <div class="d-flex justify-content-end align-items-center gap-2">
+      <img :src="user.image" alt="" height="25" />
       <button type="button" class="btn btn-outline-primary btn-sm">
-        Some texts
+        Hi, {{ user.firstName }}
       </button>
-      <button type="button" class="btn btn-outline-primary btn-sm">
-        Log in
-      </button>
-      <button type="button" class="btn btn-outline-secondary btn-sm">
+      <button
+        type="button"
+        class="btn btn-outline-secondary btn-sm"
+        @click="logout"
+      >
         Log out
       </button>
     </div>
@@ -23,7 +25,27 @@
 </template>
 
 <script lang="ts" setup>
+import type { AuthType } from '@/src/api/auth';
+import { TOKEN, USER } from '@/src/utils/constant';
+
 const emits = defineEmits(['clickToggler']);
+const user = computed<AuthType>(() => {
+  if (typeof localStorage === 'undefined') {
+    return {};
+  }
+  const data = localStorage.getItem(USER);
+  if (data) {
+    return JSON.parse(data);
+  } else {
+    return {};
+  }
+});
+
+const logout = () => {
+  localStorage.removeItem(USER);
+  localStorage.removeItem(TOKEN);
+  window.location.href = '/login';
+};
 </script>
 
 <style lang="scss"></style>
