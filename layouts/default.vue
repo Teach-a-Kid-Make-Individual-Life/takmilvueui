@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <slot />
-  </div>
+  <ClientOnly>
+    <div>
+      <slot />
+    </div>
+  </ClientOnly>
 </template>
 
 <script lang="ts" setup></script>

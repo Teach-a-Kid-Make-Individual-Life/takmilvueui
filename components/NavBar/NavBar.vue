@@ -26,6 +26,7 @@
 
 <script lang="ts" setup>
 import { useAuthStore } from '@/src/stores/auth';
+import { TOKEN, USER } from '@/src/utils/constant';
 import { storeToRefs } from 'pinia';
 
 const authStore = useAuthStore();
@@ -34,6 +35,8 @@ const emits = defineEmits(['clickToggler']);
 
 const logout = () => {
   authStore.user = {};
+  localStorage.removeItem(TOKEN);
+  localStorage.removeItem(USER);
   window.location.href = '/login';
 };
 </script>

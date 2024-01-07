@@ -31,6 +31,9 @@
             required
           />
         </div>
+        <p v-if="error" class="text-danger" style="font-size: 14px">
+          {{ error }}
+        </p>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
@@ -46,6 +49,7 @@ const username = ref('kminchelle');
 const password = ref('0lelplR');
 const authStore = useAuthStore();
 const router = useRouter();
+const error = ref('');
 
 const submit = async () => {
   try {
@@ -62,8 +66,15 @@ const submit = async () => {
       authStore.user = response;
       router.push('/');
     }
-  } catch (error) {}
+  } catch (err: any) {
+    error.value = err?.message;
+  }
 };
+
+watch(
+  () => password.value,
+  () => (error.value = ''),
+);
 </script>
 
 <style></style>
