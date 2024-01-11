@@ -1,7 +1,7 @@
 <template>
-  <div class="page-products p-4">
-    <h1 class="h5 mb-4">Products</h1>
-    <div class="page-products__table">
+  <div class="page-schools p-4">
+    <h1 class="h5 mb-4">Schools</h1>
+    <div class="page-schools__table">
       <div class="table-responsive">
         <table class="table">
           <thead>
@@ -12,17 +12,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="product in productList" :key="product.id">
+            <tr v-for="school in schoolsList" :key="school.id">
               <td v-for="(header, index) in headers" :key="`row-${index}`">
                 <div
                   v-if="header.key !== 'thumbnail'"
-                  class="page-products__table__cell"
+                  class="page-schools__table__cell"
                 >
-                  {{ getValue({ product, header }) }}
+                  {{ getValue({ product: school, header }) }}
                 </div>
 
                 <div v-else>
-                  <img :src="product[header.key]" alt="" height="40" />
+                  <img :src="school[header.key]" alt="" height="40" />
                 </div>
               </td>
             </tr>
@@ -31,9 +31,9 @@
       </div>
     </div>
 
-    <div class="page-products__pagination" v-if="products?.total">
+    <div class="page-schools__pagination" v-if="schools?.totalPages">
       <Pagination
-        :total="products.total"
+        :total="schools.records"
         @pageChange="pageChange"
         :perPage="limit"
       />
@@ -43,29 +43,30 @@
 
 <script lang="ts" setup>
 import {
-  getListProduct,
-  type ProductHeader,
-  type ListProductResponse,
-  type ProductType,
-} from '@/src/api/products';
-const products = ref<ListProductResponse>({});
+  getListSchool,
+  type ProductHeader as SchoolHeader,
+  type ListSchoolResponse,
+  type SchoolType,
+} from '@/src/api/schools';
 
-const productList = computed<ProductType[]>(() => {
+const schools = ref<ListSchoolResponse>({});
+
+const schoolsList = computed<SchoolType[]>(() => {
   return (
-    (products.value?.products || []).map((item, index) => {
-      return { ...item, order: item.id };
+    (schools.value?.data || []).map((item, index) => {
+      return { ...item, order: item.name };
     }) || []
   );
 });
 
-const headers: ProductHeader[] = [
+const headers: SchoolHeader[] = [
   {
-    key: 'id',
+    key: '_id',
     label: 'ID',
   },
   {
-    key: 'title',
-    label: 'Title',
+    key: 'name',
+    label: 'Name',
   },
   {
     key: 'brand',
@@ -98,25 +99,28 @@ const headers: ProductHeader[] = [
 ];
 
 const currentPage = ref(0);
-const limit = ref(5);
-const getProducts = async () => {
+const limit = ref(10);
+const getSchools = async () => {
   try {
-    const response = await getListProduct({
-      limit: limit.value,
-      skip: (currentPage.value - 1) * limit.value,
+    const response = await getListSchool({
+      pageSize: limit.value,
+      page: currentPage.value * limit.value,
     });
-    if (response?.products) {
-      products.value = response;
+    if (response?.data) {
+      schools.value = response;
     }
-  } catch {}
+    console.log("schools api response", response, schools.value.totalPages);
+  } catch(error: any) {
+    console.log("schools error response", error)
+  }
 };
 
 const getValue = ({
   product,
   header,
 }: {
-  product: ProductType;
-  header: ProductHeader;
+  product: SchoolType;
+  header: SchoolHeader;
 }) => {
   /*@ts-ignore*/
   return product[header.key];
@@ -129,12 +133,12 @@ const pageChange = (page: number) => {
 watch(
   () => currentPage.value,
   () => {
-    getProducts();
+    getSchools();
   },
 );
 
 onBeforeMount(() => {
-  getProducts();
+  getSchools();
 });
 
 definePageMeta({
@@ -144,7 +148,7 @@ definePageMeta({
 </script>
 
 <style lang="scss">
-.page-products {
+.page-schools {
   &__pagination {
     margin-top: 20px;
     display: flex;

@@ -3,11 +3,11 @@
     class="position-fixed w-100 h-100 d-flex justify-content-center align-items-center"
   >
     <div class="mw-100 m-auto p-4 border overflow-hidden" style="width: 500px">
-      <h1 class="text-center h3 mt-3">Welcome to our app</h1>
+      <img src="/logo-1.png" class="mx-auto d-block mb-5" width="100"/>
       <p class="text-center mb-5">Login to continue</p>
       <form autocomplete="off" @submit.prevent="submit">
         <div class="mb-4">
-          <label class="form-label">Username</label>
+          <label class="form-label">User Name</label>
           <input
             type="text"
             class="form-control"
@@ -45,8 +45,8 @@ import { authLogin } from '@/src/api/auth';
 import { TOKEN, USER } from '@/src/utils/constant';
 import { useAuthStore } from '@/src/stores/auth';
 
-const username = ref('kminchelle');
-const password = ref('0lelplR');
+const username = ref('admin');
+const password = ref('changeme');
 const authStore = useAuthStore();
 const router = useRouter();
 const error = ref('');
@@ -57,13 +57,14 @@ const submit = async () => {
       password: password.value,
       username: username.value,
     });
-    if (response?.id) {
+    console.log("auth response", response);
+    if (response?.accessToken) {
       // can not remove token and user from localstorage
       // because we need it to know whether user already login or not when refresh page
       // or when user access application next time, don't need to login anymore
-      localStorage.setItem(TOKEN, response?.token || '');
-      localStorage.setItem(USER, JSON.stringify(response));
-      authStore.user = response;
+      localStorage.setItem(TOKEN, response?.accessToken || '');
+      localStorage.setItem(USER, JSON.stringify(response.user));
+      authStore.user = response.user;
       router.push('/');
     }
   } catch (err: any) {

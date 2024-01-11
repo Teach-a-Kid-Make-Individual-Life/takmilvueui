@@ -1,5 +1,6 @@
 export interface PaginationResponse {
-  total?: number;
-  skip?: number;
-  limit?: number;
+  page?: number;
+  pageSize?: number;
+  records?: number;
+  totalPages?: number;
 }

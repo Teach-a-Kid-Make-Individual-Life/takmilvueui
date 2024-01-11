@@ -5,15 +5,15 @@
       <div class="row">
         <div class="col col-sm-6 col-md-4 col-lg-3 mb-3">
           <CardSummaryCard
-            title="Products"
-            :subTitle="products?.total || 0"
-            to="/products"
+            title="Schools"
+            :subTitle="schoolTotal"
+            to="/schools"
           />
         </div>
         <div class="col col-sm-6 col-md-4 col-lg-3 mb-3">
           <CardSummaryCard
             title="Posts"
-            :subTitle="products?.total || 0"
+            :subTitle="schoolTotal?.total || 0"
             to="/posts"
           />
         </div>
@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getListProduct, type ListProductResponse } from '@/src/api/products';
+import { getSchoolCount } from '@/src/api/schools';
 import { getListPost, type ListPostResponse } from '@/src/api/posts';
 import { getListUser, type ListUserResponse } from '@/src/api/users';
 import { getListTodo, type ListTodoResponse } from '@/src/api/todos';
@@ -47,17 +47,15 @@ definePageMeta({
   middleware: 'dashboard',
 });
 
-const products = ref<ListProductResponse>({});
+const schoolTotal = ref("");
 const posts = ref<ListPostResponse>({});
 const users = ref<ListUserResponse>({});
 const todos = ref<ListTodoResponse>({});
 
-const getProducts = async () => {
+const getSchools = async () => {
   try {
-    const response = await getListProduct();
-    if (response?.products) {
-      products.value = response;
-    }
+    const response = await getSchoolCount();
+    schoolTotal.value = response.toString();    
   } catch {}
 };
 
@@ -89,7 +87,7 @@ const getTodos = async () => {
 };
 
 onBeforeMount(() => {
-  getProducts();
+  getSchools();
   getPosts();
   getUsers();
   getTodos();

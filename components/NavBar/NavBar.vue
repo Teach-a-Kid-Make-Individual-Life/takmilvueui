@@ -9,9 +9,9 @@
     ></i>
 
     <div class="d-flex justify-content-end align-items-center gap-2">
-      <img :src="user.image" alt="" height="25" />
+      <img :src="user.imageUrl" alt="" height="25" />
       <button type="button" class="btn btn-outline-primary btn-sm">
-        Hi, {{ user.firstName }}
+        Hi, {{ user.firstName }} {{ user.lastName }}
       </button>
       <button
         type="button"

@@ -21,7 +21,7 @@ const props = defineProps({
 const emits = defineEmits(['pageChange']);
 const selected = ref(1);
 const onClickHandler = (page: number) => {
-  emits('pageChange', page);
+  emits('pageChange', page/props.perPage);
 };
 </script>
 

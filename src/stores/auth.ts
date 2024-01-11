@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
-import type { AuthType } from '@/src/api/auth';
+import type { UserType } from '@/src/api/auth';
 
 export const useAuthStore = defineStore('auth-store', () => {
-  const user = ref<AuthType>({});
+  const user = ref<UserType>({});
   return {
     user,
   };

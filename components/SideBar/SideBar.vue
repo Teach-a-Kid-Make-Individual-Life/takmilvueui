@@ -33,8 +33,8 @@ const links = [
     icon: 'bi bi-house-door-fill',
   },
   {
-    title: 'Products ',
-    to: '/products',
+    title: 'Schools ',
+    to: '/schools',
     icon: 'bi bi-box-fill',
   },
   {
