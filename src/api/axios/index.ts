@@ -18,7 +18,13 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => response?.data || response,
-  (error) => Promise.reject(error?.response?.data || error?.response || error),
+  (error) => {
+    if (error.response.status === 401) {
+      // store.dispatch('logout')
+      window.location.href = '/login';
+    }
+    return Promise.reject(error?.response?.data || error?.response || error);
+  },
 );
 
 export default axiosInstance;

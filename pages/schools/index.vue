@@ -98,13 +98,13 @@ const headers: SchoolHeader[] = [
   },
 ];
 
-const currentPage = ref(0);
+const currentPage = ref(1);
 const limit = ref(10);
 const getSchools = async () => {
   try {
     const response = await getListSchool({
       pageSize: limit.value,
-      page: currentPage.value * limit.value,
+      page: (currentPage.value-1) * limit.value,
     });
     if (response?.data) {
       schools.value = response;
