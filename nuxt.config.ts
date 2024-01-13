@@ -1,8 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: ['@/src/styles/main.css'],
-  modules: ['@pinia/nuxt'],
+  css: ['@/src/styles/main.css', 'primevue/resources/themes/lara-light-green/theme.css'],
+  modules: ['@pinia/nuxt', 'nuxt-primevue'],
+  primevue: {
+    cssLayerOrder: 'reset,primevue'
+  },
   app: {
     head: {
       title: 'Zakir Magdum',

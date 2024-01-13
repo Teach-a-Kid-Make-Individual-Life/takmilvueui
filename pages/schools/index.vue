@@ -1,43 +1,30 @@
 <template>
   <div class="page-schools p-4">
     <h1 class="h5 mb-4">Schools</h1>
-    <div class="page-schools__table">
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th v-for="(hd, index) in headers" :key="index">
-                {{ hd.label }}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="school in schoolsList" :key="school.id">
-              <td v-for="(header, index) in headers" :key="`row-${index}`">
-                <div
-                  v-if="header.key !== 'thumbnail'"
-                  class="page-schools__table__cell"
-                >
-                  {{ getValue({ product: school, header }) }}
-                </div>
-
-                <div v-else>
-                  <img :src="school[header.key]" alt="" height="40" />
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="page-schools__pagination" v-if="schools?.totalPages">
-      <Pagination
-        :total="schools.records"
-        @pageChange="pageChange"
-        :perPage="limit"
-      />
-    </div>
+    <DataTable :value="schools.data" stripedRows tableStyle="min-width: 50rem"
+      lazy paginator :first="currentRecord" :rows="10" dataKey="_id"
+            :totalRecords="totalRecords" :loading="loading" @page="onPage($event)">
+      <Column field="name" header="Name"></Column>
+      <Column field="status" header="Status"></Column>
+      <Column field="startYear" header="Start Year"></Column>
+      <Column field="address.district" header="District"></Column>
+      <Column field="address.state" header="Province"></Column>
+      <Column field="teacher" header="Teacher">
+        <template #body="slotProps">
+            {{ slotProps.data.teacher?.firstName + " " + slotProps.data.teacher?.lastName}}
+        </template>
+      </Column>
+      <Column field="coordinator" header="Coordinator">
+        <template #body="slotProps">
+            {{ slotProps.data.coordinator?.firstName + " " + slotProps.data.coordinator?.lastName}}
+        </template>
+      </Column>
+      <Column field="regionalCoordinator" header="Regional Coordinator">
+        <template #body="slotProps">
+            {{ slotProps.data.regionalCoordinator?.firstName + " " + slotProps.data.regionalCoordinator?.lastName}}
+        </template>
+      </Column>
+    </DataTable>
   </div>
 </template>
 
@@ -48,7 +35,8 @@ import {
   type ListSchoolResponse,
   type SchoolType,
 } from '@/src/api/schools';
-
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 const schools = ref<ListSchoolResponse>({});
 
 const schoolsList = computed<SchoolType[]>(() => {
@@ -98,16 +86,21 @@ const headers: SchoolHeader[] = [
   },
 ];
 
+const currentRecord = ref(0);
 const currentPage = ref(1);
+const totalRecords = ref(1);
+const loading = ref(false);
+
 const limit = ref(10);
 const getSchools = async () => {
   try {
     const response = await getListSchool({
       pageSize: limit.value,
-      page: (currentPage.value-1) * limit.value,
+      page: currentPage.value,
     });
     if (response?.data) {
       schools.value = response;
+      totalRecords.value = response.records || 0;
     }
     console.log("schools api response", response, schools.value.totalPages);
   } catch(error: any) {
@@ -127,7 +120,13 @@ const getValue = ({
 };
 
 const pageChange = (page: number) => {
+  console.log("setting page number", page);
   currentPage.value = page;
+};
+
+const onPage = (event: any) => {
+  console.log("setting page number", event.first/event.rows);
+  currentPage.value = event.first/event.rows;
 };
 
 watch(
