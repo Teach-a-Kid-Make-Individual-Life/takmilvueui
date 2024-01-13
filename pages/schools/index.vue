@@ -1,6 +1,6 @@
 <template>
-  <div class="page-schools p-4">
-    <h1 class="h5 mb-4">Schools</h1>
+  <div class="card">
+    <h5>Schools</h5>
     <DataTable :value="schools.data" stripedRows tableStyle="min-width: 50rem"
       lazy paginator :first="currentRecord" :rows="10" dataKey="_id"
             :totalRecords="totalRecords" :loading="loading" @page="onPage($event)">
@@ -81,11 +81,6 @@ watch(
 
 onBeforeMount(() => {
   getSchools();
-});
-
-definePageMeta({
-  layout: 'dashboard',
-  middleware: 'dashboard',
 });
 </script>
 

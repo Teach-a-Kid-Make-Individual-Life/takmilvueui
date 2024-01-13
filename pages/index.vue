@@ -42,11 +42,6 @@ import { getListPost, type ListPostResponse } from '@/src/api/posts';
 import { getListUser, type ListUserResponse } from '@/src/api/users';
 import { getListTodo, type ListTodoResponse } from '@/src/api/todos';
 
-definePageMeta({
-  layout: 'dashboard',
-  middleware: 'dashboard',
-});
-
 const schoolTotal = ref("");
 const posts = ref<ListPostResponse>({});
 const users = ref<ListUserResponse>({});

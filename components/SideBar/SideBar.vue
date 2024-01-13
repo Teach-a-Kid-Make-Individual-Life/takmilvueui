@@ -1,104 +1,144 @@
 <template>
-  <div class="sidebar">
-    <div
-      class="sidebar__logo d-flex justify-content-start align-items-center border-bottom"
-    >
-      <NuxtLink to="/" class="text-light text-decoration-none h5 m-0">
-        Dashboard
-      </NuxtLink>
-    </div>
-
-    <div class="sidebar__menu">
+  <ul class="layout-menu">
       <NuxtLink
-        v-for="(link, index) in links"
-        :key="index"
-        :to="link.to"
-        class="sidebar__menu__link"
-      >
-        <i
-          :class="link.icon"
-          style="font-size: 1.2rem; color: rgb(205, 203, 203)"
-        ></i>
-        {{ link.title }}
+          v-for="(link, index) in links"
+          :key="index"
+          :to="link.to"
+        >
+        <li class="menu-item-custom">
+          <i :class="link.icon" class="layout-menuitem-icon" />
+          <span class="layout-menuitem-text">{{ link.label }}</span>
+        </li>
       </NuxtLink>
-    </div>
-  </div>
+  </ul>
 </template>
 
 <script lang="ts" setup>
+import { useRoute } from 'vue-router'
+const route = useRoute()
+
 const links = [
   {
-    title: 'Home',
+    label: 'Home',
     to: '/',
-    icon: 'bi bi-house-door-fill',
+    icon: 'pi pi-fw pi-home',
   },
   {
-    title: 'Schools ',
+    label: 'Schools ',
     to: '/schools',
-    icon: 'bi bi-box-fill',
+    icon: 'pi pi-fw pi-table',
   },
   {
-    title: 'Posts',
+    label: 'Posts',
     to: '/posts',
-    icon: 'bi bi-envelope-open-fill',
+    icon: 'pi pi-fw pi-database',
   },
   {
-    title: 'Users',
+    label: 'Users',
     to: '/users',
-    icon: 'bi bi-people-fill',
+    icon: 'pi pi-fw pi-user-edit',
   },
   {
-    title: 'Todos',
+    label: 'Todos',
     to: '/todos',
-    icon: 'bi bi-book-fill',
+    icon: 'pi pi-fw pi-user-edit',
   },
 ];
-</script>
-
-<style lang="scss">
-.sidebar {
-  color: white;
-  text-decoration: none;
-  display: grid;
-  grid-template-rows: 60px auto;
-
-  &__logo {
-    padding-left: 12px;
+const props = defineProps({
+  item: {
+    type: Object,
+    default: () => ({})
+  },
+  index: {
+    type: Number,
+    default: 0
+  },
+  root: {
+    type: Boolean,
+    default: false
+  },
+  parentItemKey: {
+    type: String,
+    default: null
   }
-
-  &__menu {
-    display: flex;
-    flex-direction: column;
-    padding-top: 12px;
-    overflow-y: auto;
-    &__link {
-      display: flex;
-      gap: 12px;
-      color: rgb(205, 203, 203);
-      text-decoration: none;
-      padding: 12px;
-      transition: all 0.3s;
-      &:hover {
-        color: white;
-        i {
-          transition: all 0.3s;
-          color: white;
-          &::before {
-            color: white;
-          }
-        }
-      }
-
-      &.router-link-exact-active {
-        color: white;
-        i {
-          color: white;
-          &::before {
-            color: white;
-          }
-        }
-      }
-    }
-  }
+})
+const isActiveMenu = ref(false)
+const checkActiveRoute = (item) => {
+  return route.path === item.to
 }
+
+const items = ref([
+    {
+        label: 'File',
+        icon: 'pi pi-file',
+        items: [
+            {
+                label: 'New',
+                icon: 'pi pi-plus',
+                items: [
+                    {
+                        label: 'Document',
+                        icon: 'pi pi-file'
+                    },
+                    {
+                        label: 'Image',
+                        icon: 'pi pi-image'
+                    },
+                    {
+                        label: 'Video',
+                        icon: 'pi pi-video'
+                    }
+                ]
+            },
+            {
+                label: 'Open',
+                icon: 'pi pi-folder-open'
+            },
+            {
+                label: 'Print',
+                icon: 'pi pi-print'
+            }
+        ]
+    },
+    {
+        label: 'Edit',
+        icon: 'pi pi-file-edit',
+        items: [
+            {
+                label: 'Copy',
+                icon: 'pi pi-copy'
+            },
+            {
+                label: 'Delete',
+                icon: 'pi pi-times'
+            }
+        ]
+    },
+    {
+        label: 'Search',
+        icon: 'pi pi-search'
+    },
+    {
+        separator: true
+    },
+    {
+        label: 'Share',
+        icon: 'pi pi-share-alt',
+        items: [
+            {
+                label: 'Slack',
+                icon: 'pi pi-slack'
+            },
+            {
+                label: 'Whatsapp',
+                icon: 'pi pi-whatsapp'
+            }
+        ]
+    }
+]);
+</script>
+<style lang="scss" scoped>
+  .menu-item-custom {
+    margin-top: 20px;
+  }
 </style>

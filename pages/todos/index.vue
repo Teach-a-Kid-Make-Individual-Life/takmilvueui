@@ -5,10 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-definePageMeta({
-  layout: 'dashboard',
-  middleware: 'dashboard',
-});
+
 </script>
 
 <style></style>
