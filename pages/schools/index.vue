@@ -69,32 +69,32 @@ const headers: SchoolHeader[] = [
     label: 'Name',
   },
   {
-    key: 'brand',
-    label: 'Brand',
+    key: 'status',
+    label: 'Status',
   },
   {
-    key: 'price',
-    label: 'Price',
+    key: 'startYear',
+    label: 'Start Year',
   },
   {
-    key: 'discountPercentage',
-    label: 'Discount (%)',
+    key: 'address',
+    label: 'District',
   },
   {
-    key: 'rating',
-    label: 'Rating',
+    key: 'address.state',
+    label: 'Province',
   },
   {
-    key: 'stock',
-    label: 'Stock',
+    key: 'teacher',
+    label: 'Teacher',
   },
   {
-    key: 'category',
-    label: 'Category',
+    key: 'coordinator',
+    label: 'Coordinator',
   },
   {
-    key: 'thumbnail',
-    label: 'Thumbnail',
+    key: 'regionalCoordinator',
+    label: 'Region Coordinator',
   },
 ];
 

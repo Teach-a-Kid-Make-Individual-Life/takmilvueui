@@ -4,22 +4,34 @@ import type { PaginationResponse } from '@/src/api/types';
 export interface SchoolType {
   _id?: number;
   name?: string;
-  description?: string;
-  price?: number;
-  discountPercentage?: number;
-  rating?: number;
-  stock?: number;
-  brand?: string;
-  category?: string;
-  thumbnail?: string;
-  images?: string[];
-  order?: number;
+  status?: string;
+  address?: {
+    _id?: string
+    district?: string;
+    state?: string;
+  }
+  startYear?: number;
+  teacher?: {
+    _id?: string
+    firstName?: string
+    lastName?: string
+  }
+  coordinator?: {
+    _id?: string
+    firstName?: string
+    lastName?: string
+  }
+  regionalCoordinator?: {
+    _id?: string
+    firstName?: string
+    lastName?: string
+  }
 }
 
-export type ProductValues = keyof SchoolType;
+export type SchoolValues = keyof SchoolType;
 
-export interface ProductHeader {
-  key?: ProductValues;
+export interface SchoolHeader {
+  key?: SchoolValues;
   label?: string;
 }
 
