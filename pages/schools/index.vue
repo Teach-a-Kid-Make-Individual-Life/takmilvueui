@@ -31,7 +31,6 @@
 <script lang="ts" setup>
 import {
   getListSchool,
-  type ProductHeader as SchoolHeader,
   type ListSchoolResponse,
   type SchoolType,
 } from '@/src/api/schools';
@@ -46,45 +45,6 @@ const schoolsList = computed<SchoolType[]>(() => {
     }) || []
   );
 });
-
-const headers: SchoolHeader[] = [
-  {
-    key: '_id',
-    label: 'ID',
-  },
-  {
-    key: 'name',
-    label: 'Name',
-  },
-  {
-    key: 'status',
-    label: 'Status',
-  },
-  {
-    key: 'startYear',
-    label: 'Start Year',
-  },
-  {
-    key: 'address',
-    label: 'District',
-  },
-  {
-    key: 'address.state',
-    label: 'Province',
-  },
-  {
-    key: 'teacher',
-    label: 'Teacher',
-  },
-  {
-    key: 'coordinator',
-    label: 'Coordinator',
-  },
-  {
-    key: 'regionalCoordinator',
-    label: 'Region Coordinator',
-  },
-];
 
 const currentRecord = ref(0);
 const currentPage = ref(1);
@@ -102,26 +62,9 @@ const getSchools = async () => {
       schools.value = response;
       totalRecords.value = response.records || 0;
     }
-    console.log("schools api response", response, schools.value.totalPages);
   } catch(error: any) {
     console.log("schools error response", error)
   }
-};
-
-const getValue = ({
-  product,
-  header,
-}: {
-  product: SchoolType;
-  header: SchoolHeader;
-}) => {
-  /*@ts-ignore*/
-  return product[header.key];
-};
-
-const pageChange = (page: number) => {
-  console.log("setting page number", page);
-  currentPage.value = page;
 };
 
 const onPage = (event: any) => {

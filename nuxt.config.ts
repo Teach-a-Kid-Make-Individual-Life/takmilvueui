@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: 'Zakir Magdum',
+      title: 'Takmil Studio',
       link: [
         {
           rel: 'stylesheet',
