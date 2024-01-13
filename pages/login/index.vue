@@ -1,49 +1,36 @@
 <template>
-  <div
-    class="position-fixed w-100 h-100 d-flex justify-content-center align-items-center"
-  >
-    <div class="mw-100 m-auto p-4 border overflow-hidden" style="width: 500px">
-      <img src="/logo-1.png" class="mx-auto d-block mb-5" width="100"/>
-      <p class="text-center mb-5">Login to continue</p>
+  <Card class="card text-center center" style="width: 25em">
+    <template #header>
+      <img src="/logo-1.png" width="100"/>
+    </template>
+    <template #title>Login to continue</template>
+    <template #content>
       <form autocomplete="off" @submit.prevent="submit">
-        <div class="mb-4">
-          <label class="form-label">User Name</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Username"
-            autocomplete="off"
-            id="username"
-            name="username"
-            v-model="username"
-            required
-          />
-        </div>
-        <div class="mb-4">
-          <label class="form-label">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            autocomplete="off"
-            id="password"
-            name="password"
-            v-model="password"
-            required
-          />
-        </div>
+        <InputGroup class="mb-5">
+          <InputGroupAddon>
+            <i class="pi pi-user"></i>
+          </InputGroupAddon>
+          <InputText id="username" placeholder="Username"  v-model="username"/>
+        </InputGroup>
+        <InputGroup class="mb-5">
+          <InputGroupAddon>
+            <i class="pi pi-lock"></i>
+          </InputGroupAddon>
+          <Password id="password" v-model="password" />
+        </InputGroup>
         <p v-if="error" class="text-danger" style="font-size: 14px">
           {{ error }}
         </p>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <Button type="submit" label="Submit" />
       </form>
-    </div>
-  </div>
+    </template>
+  </Card>
 </template>
 
 <script lang="ts" setup>
 import { authLogin } from '@/src/api/auth';
 import { TOKEN, USER } from '@/src/utils/constant';
-import { useAuthStore } from '@/src/stores/auth';
+import { useAuthStore } from '@/stores/auth';
 
 const username = ref('admin');
 const password = ref('changeme');
@@ -76,6 +63,19 @@ watch(
   () => password.value,
   () => (error.value = ''),
 );
+definePageMeta({
+  layout: 'nobars',
+  middleware: 'dashboard',
+});
 </script>
 
-<style></style>
+<style>
+  .center {
+    border: 1px solid;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+  }
+</style>

@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { useAuthStore } from '@/src/stores/auth';
+import { useAuthStore } from '@/stores/auth';
 import { TOKEN, USER } from '@/src/utils/constant';
 import { storeToRefs } from 'pinia';
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
@@ -86,6 +86,25 @@ function redirectToGithub (event: any) {
   window.open('https://github.com/sfxcode/nuxt3-primevue-starter', '_blank')
 }
 
+const items = [
+    {
+        label: 'Profile',
+        icon: 'pi pi-refresh',
+        to: '/profile'
+    },
+    {
+        label: 'Logout',
+        icon: 'pi pi-times',
+        command: () => {
+            logout();
+        }
+    }
+];
+
+function getUserName() {
+  console.log("user", authStore.user.firstName);
+  return user.value.firstName + ' ' + user.value.lastName;
+}
 </script>
 
 <template>
@@ -100,10 +119,7 @@ function redirectToGithub (event: any) {
     </button>
 
     <div class="layout-topbar-menu" :class="topbarMenuClasses">
-      <button class="p-link layout-topbar-button">
-        <i class="pi pi-user" />
-        <span>Profile</span>
-      </button>
+      <SplitButton :label="getUserName()" :model="items" icon="pi pi-user" @click="save" text></SplitButton>
       <button class="p-link layout-topbar-button" @click="toggle">
         <i class="pi pi-cog" />
         <span>Settings</span>
