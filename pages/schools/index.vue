@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import {
-  getListSchool,
+  getListSchools,
   type ListSchoolResponse,
   type SchoolType,
 } from '@/src/api/schools';
@@ -54,7 +54,7 @@ const loading = ref(false);
 const limit = ref(10);
 const getSchools = async () => {
   try {
-    const response = await getListSchool({
+    const response = await getListSchools({
       pageSize: limit.value,
       page: currentPage.value,
     });

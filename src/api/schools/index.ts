@@ -28,6 +28,16 @@ export interface SchoolType {
   }
 }
 
+export interface SchoolStats {
+  total: number;
+  noStatus: number;
+  noTeacher: number;
+  noCoordinator: number;
+  noRegionalCoordinator: number;
+  noInventory: number;
+  noFeedback: number;
+}
+
 export type SchoolValues = keyof SchoolType;
 
 export interface SchoolHeader {
@@ -49,4 +59,7 @@ const getSchoolCount = async (): Promise<Number> => {
   return axiosInstance.get('/schools/count');
 };
 
-export { getListSchools as getListSchool, getSchoolCount };
+const getSchoolStats = async (): Promise<SchoolStats> => {
+  return axiosInstance.get('/schools/stats');
+};
+export { getListSchools, getSchoolCount, getSchoolStats };

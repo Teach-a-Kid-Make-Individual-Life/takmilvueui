@@ -47,6 +47,7 @@ export default defineNuxtConfig({
   },
   css: [
     'primevue/resources/primevue.css',
+    'primeflex/primeflex.scss',
     'primeicons/primeicons.css',
     '@sfxcode/formkit-primevue/dist/sass/formkit-primevue.scss'
   ],

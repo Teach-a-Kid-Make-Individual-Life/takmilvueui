@@ -15,4 +15,8 @@ const getListPost = async (
   return axiosInstance.get('/posts', { params });
 };
 
-export { getListPost };
+const getTeacherCount = async (): Promise<Number> => {
+  return axiosInstance.get('/people/teacher/count');
+};
+
+export { getListPost, getTeacherCount };
