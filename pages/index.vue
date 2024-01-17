@@ -17,8 +17,16 @@
                 <div class="text-green-500 font-medium">No Coordinator : {{ stats?.noCoordinator}}</div>
                 <div class="text-green-500 font-medium">No Teacher : {{ stats?.noTeacher}}</div>
                 <div class="text-green-500 font-medium">No Status : {{ stats?.noStatus}}</div>
+                <div class="text-green-500 font-medium">No School Name : {{ stats?.noSchoolName}}</div>
+                <div class="text-green-500 font-medium">No School shift : {{ stats?.noSchoolShift}}</div>
+                <div class="text-green-500 font-medium">No School Time : {{ stats?.noSchoolTime}}</div>
+                <div class="text-green-500 font-medium">No Internet : {{ stats?.noInternet}}</div>
+                <div class="text-green-500 font-medium">No Electricity : {{ stats?.noElectricity}}</div>
                 <div class="text-green-500 font-medium">No Inventory : {{ stats?.noInventory}}</div>
                 <div class="text-green-500 font-medium">No Feedback: {{ stats?.noFeedback}}</div>
+                <div class="text-green-500 font-medium">No village: {{ stats?.noTown}}</div>
+                <div class="text-green-500 font-medium">No tehsil: {{ stats?.noTehsil}}</div>
+                <div class="text-green-500 font-medium">No Union council: {{ stats?.noUnionCouncil}}</div>
             </div>
         </div>
         <div class="col-12 md:col-6 lg:col-3">
@@ -90,9 +98,9 @@ const getSchools = async () => {
     const response = await getSchoolStats();
     stats.value = response;
     const r1 = await getTeacherCount();
-    teacherTotal.value = r1.toString();    
+    teacherTotal.value = r1.toString();
     const r2 = await getStudentCount();
-    studentTotal.value = r2.toString();        
+    studentTotal.value = r2.toString();
   } catch {}
 };
 

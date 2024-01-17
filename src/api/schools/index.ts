@@ -36,6 +36,18 @@ export interface SchoolStats {
   noRegionalCoordinator: number;
   noInventory: number;
   noFeedback: number;
+  noSchoolName: number;
+
+ noDistrict: number;
+  noTown: number;
+  noState: number;
+  noUnionCouncil: number;
+  noTehsil: number;
+  noSchoolTime: number;
+  noSchoolShift: number;
+  noFacilityType: number;
+  noInternet: number;
+  noElectricity: number;
 }
 
 export type SchoolValues = keyof SchoolType;
